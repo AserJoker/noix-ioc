@@ -1,6 +1,7 @@
 {
   "name": "@noix/ioc",
   "version": "0.1.0",
+  "private": "false",
   "devDependencies": {
     "typescript": "^4.6.2",
     "jest": "^27.5.1",
@@ -12,5 +13,10 @@
     "build": "tsc",
     "install": "npm run build",
     "test": "jest"
+  },
+  "main": "lib/index.js",
+  "typings": "typings/index.d.ts",
+  "publishConfig": {
+    "access": "public"
   }
 }
