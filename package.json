@@ -1,7 +1,7 @@
 {
   "name": "@noix/ioc",
   "version": "0.1.0",
-  "private": "false",
+  "private": false,
   "devDependencies": {
     "typescript": "^4.6.2",
     "jest": "^27.5.1",
