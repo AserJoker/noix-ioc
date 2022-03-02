@@ -12,6 +12,9 @@ export const useContainer = () => {
       values: Record<string | number, unknown> = {},
       initialize?: keyof InstanceType<K>
     ) => {
+      if (typeof token === "string" && token.startsWith("#")) {
+        throw new Error('the token start with "#" is a reserved word.');
+      }
       providers[token] = {
         provider,
         scope,
@@ -24,6 +27,9 @@ export const useContainer = () => {
       token: string | symbol,
       path: (string | symbol)[] = []
     ) => {
+      if (token === "#container") {
+        return container as unknown as T;
+      }
       if (stores[token]) {
         return stores[token] as T;
       }
@@ -69,7 +75,8 @@ export const useContainer = () => {
     const remove = (token: string | symbol) => {
       delete stores[token];
     };
-    return { provide, inject, proxy, store, remove };
+    const container = { provide, inject, proxy, store, remove };
+    return container;
   };
   return proxy();
 };
