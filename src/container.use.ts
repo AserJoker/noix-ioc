@@ -56,7 +56,7 @@ export const useContainer = () => {
         if (current === token) {
           ins[field] = ins;
         } else {
-          ins[field] = inject(current, [...path, token]);
+          ins[field] = inject(current, [...path, token]) || ins[field];
         }
       });
       if (provider.initialize) {
