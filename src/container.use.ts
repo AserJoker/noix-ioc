@@ -2,8 +2,10 @@ import { IContainer, IProvide, IProvideClass, Scope } from "./type";
 
 export const useContainer = () => {
   const providers: Record<string | symbol, IProvide<unknown>> = {};
-  const proxy = (): IContainer => {
-    const stores: Record<string | symbol, unknown> = {};
+  const proxy = (
+    extendsstores: Record<string | symbol, unknown>
+  ): IContainer => {
+    const stores: Record<string | symbol, unknown> = { ...extendsstores };
     const provide = <T, K extends IProvideClass<T>>(
       token: string | symbol,
       provider: K,
@@ -75,8 +77,14 @@ export const useContainer = () => {
     const remove = (token: string | symbol) => {
       delete stores[token];
     };
-    const container = { provide, inject, proxy, store, remove };
+    const container = {
+      provide,
+      inject,
+      proxy: () => proxy(stores),
+      store,
+      remove,
+    };
     return container;
   };
-  return proxy();
+  return proxy({});
 };
